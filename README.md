@@ -46,6 +46,31 @@ gateway is a separate process.
 - App integrations through Composio or Pipedream Connect, plus user-installed Treg, remote MCP, and OpenAPI tool sources
 - Docker, E2B, Daytona, CreateOS, Box, and trusted local-computer support
 
+## Graph memory with FalkorDB
+
+This fork adds a **[FalkorDB](https://www.falkordb.com/)** provider for agent memory, so a
+bot's durable facts, the topics they mention, the people who saved them, and the threads
+they came from are nodes and edges the agent can traverse.
+
+- **Multi-hop recall.** A question seeds on entities, then walks `CO_OCCURS` edges to
+  find memories that share no keywords with the question.
+- **Explainable results.** Every recalled memory carries the path that found it
+  (`direct: acme · 1-hop: billing-api (w=4) · terms 2/3`).
+- **A graph tool.** `query_memory_graph` lets the agent run read-only Cypher when
+  recall is not enough; writes are rejected by both a clause scanner and `GRAPH.RO_QUERY`.
+- **Persistent and shared.** Episodic `NEXT` chains, Space-wide shared facts, and
+  per-bot isolation, with one FalkorDB graph per Space.
+
+```bash
+docker compose -f infra/falkordb/docker-compose.yml up -d
+FALKORDB_URL=falkordb://localhost:6379 pnpm demo:falkordb
+```
+
+Then choose **FalkorDB** under Settings → Memory and point it at
+`falkordb://localhost:6379`. Full schema, security model, and query cookbook:
+[docs/falkordb.md](./docs/falkordb.md). Hackathon notes:
+[docs/hackathon/graph-hacks.md](./docs/hackathon/graph-hacks.md).
+
 ## Demo
 
 https://github.com/user-attachments/assets/dccdeddb-2134-4a56-8eed-b2e591736b1c

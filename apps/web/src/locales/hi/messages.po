@@ -540,6 +540,7 @@ msgstr "एक बार अनुमति दें"
 msgid "Allow purchase actions without asking"
 msgstr "खरीद कार्रवाइयों को बिना पूछे अनुमति दें"
 
+#: src/pages/memory-providers/FalkorDBSettingsForm.tsx
 #: src/pages/memory-providers/SerenitySettingsForm.tsx
 msgid "Allow writing"
 msgstr ""
@@ -1229,6 +1230,7 @@ msgid "Confirm the URL is reachable from this browser session, then test again."
 msgstr "पुष्टि करें कि यह URL इस ब्राउज़र सत्र से पहुँच योग्य है, फिर फिर से परीक्षण करें।"
 
 #: src/components/integrations/IntegrationSetup.tsx
+#: src/pages/memory-providers/FalkorDBSettingsForm.tsx
 #: src/pages/memory-providers/SerenitySettingsForm.tsx
 #: src/pages/memory-providers/SupermemorySettingsForm.tsx
 #: src/pages/VoiceSettingsOverlay.tsx
@@ -1298,6 +1300,7 @@ msgstr "कनेक्टेड। इसके टूल आपके अग�
 
 #: src/components/integrations/IntegrationSetup.tsx
 #: src/pages/McpServersOverlay.tsx
+#: src/pages/memory-providers/FalkorDBSettingsForm.tsx
 #: src/pages/memory-providers/SerenitySettingsForm.tsx
 #: src/pages/memory-providers/SupermemorySettingsForm.tsx
 #: src/pages/shell/message-cards.tsx
@@ -2223,6 +2226,10 @@ msgstr "इमेज सीमा के लिए 1 से 1000 के बी�
 msgid "Enter an API key before testing."
 msgstr "परीक्षण से पहले API कुंजी दर्ज करें।"
 
+#: src/pages/memory-providers/FalkorDBSettingsForm.tsx
+msgid "Enter the password for this username."
+msgstr ""
+
 #: src/lib/roster-status.ts
 #: src/pages/Shell.tsx
 msgid "Error"
@@ -2323,6 +2330,14 @@ msgstr "विफल।"
 msgid "Failure handling"
 msgstr "विफलता प्रबंधन"
 
+#: src/pages/memory-providers/FalkorDBSettingsForm.tsx
+msgid "FalkorDB endpoint"
+msgstr ""
+
+#: src/pages/memory-providers/FalkorDBSettingsForm.tsx
+msgid "FalkorDB endpoint is required."
+msgstr ""
+
 #. placeholder {0}: attachmentSizeLabel(getMaxUploadSizeBytes())
 #: src/components/computer/FilesApp.tsx
 msgid "File exceeds the {0} upload limit."
@@ -2421,6 +2436,10 @@ msgstr ""
 
 #: src/pages/RoutineEditor.tsx
 msgid "Git event"
+msgstr ""
+
+#: src/pages/memory-providers/FalkorDBSettingsForm.tsx
+msgid "Graph namespace"
 msgstr ""
 
 #: src/pages/MessagingSettingsOverlay.tsx
@@ -3437,6 +3456,10 @@ msgstr "पार्क करें"
 msgid "Password"
 msgstr "पासवर्ड"
 
+#: src/pages/memory-providers/FalkorDBSettingsForm.tsx
+msgid "Password (optional)"
+msgstr ""
+
 #: src/pages/Auth.tsx
 msgid "Password recovery is not configured for this server"
 msgstr "इस सर्वर के लिए पासवर्ड पुनर्प्राप्ति कॉन्फ़िगर नहीं है"
@@ -3573,10 +3596,16 @@ msgstr "उत्तर पढ़कर सुनाएं"
 msgid "Reasoning effort"
 msgstr "रीज़निंग प्रयास"
 
+#: src/pages/memory-providers/FalkorDBSettingsForm.tsx
 #: src/pages/memory-providers/SerenitySettingsForm.tsx
 msgid "Recall and write"
 msgstr ""
 
+#: src/pages/memory-providers/FalkorDBSettingsForm.tsx
+msgid "Recall hops"
+msgstr ""
+
+#: src/pages/memory-providers/FalkorDBSettingsForm.tsx
 #: src/pages/memory-providers/SerenitySettingsForm.tsx
 msgid "Recall only"
 msgstr ""
@@ -4802,6 +4831,10 @@ msgstr "कुंजी जाँचने के लिए कनेक्ट �
 msgid "Use default guidance"
 msgstr ""
 
+#: src/pages/memory-providers/FalkorDBSettingsForm.tsx
+msgid "Use falkordb://host:6379. Private LAN endpoints need the deployment owner."
+msgstr ""
+
 #: src/components/teach/TeachRecordingChrome.tsx
 msgid "Use Protected input for passwords."
 msgstr ""
@@ -4817,6 +4850,10 @@ msgstr "अपनी कुंजी इस्तेमाल करें"
 #: src/components/AskCard.tsx
 #: src/pages/shell/bot-credentials.tsx
 msgid "Username"
+msgstr ""
+
+#: src/pages/memory-providers/FalkorDBSettingsForm.tsx
+msgid "Username (optional)"
 msgstr ""
 
 #: src/pages/ModelSettingsOverlay.tsx

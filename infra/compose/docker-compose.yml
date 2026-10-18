@@ -16,6 +16,21 @@ services:
       timeout: 5s
       retries: 20
 
+  # Optional graph memory store. Configure it per Space in Settings -> Memory with
+  # falkordb://falkordb:6379 (deployment owner required for private LAN endpoints).
+  falkordb:
+    image: ${FALKORDB_IMAGE:-falkordb/falkordb:latest}
+    volumes:
+      - falkordbdata:/var/lib/falkordb/data
+    ports:
+      # Loopback only: FalkorDB has no authentication by default.
+      - "127.0.0.1:${FALKORDB_PORT:-6379}:6379"
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli ping | grep -q PONG"]
+      interval: 3s
+      timeout: 5s
+      retries: 20
+
   supervisor:
     build:
       context: ../..
@@ -183,4 +198,5 @@ services:
       - api
 
 volumes:
+  falkordbdata:
   pgdata:

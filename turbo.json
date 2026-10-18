@@ -1,6 +1,6 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalPassThroughEnv": ["COREPACK_ENABLE_DOWNLOAD_PROMPT"],
+  "globalPassThroughEnv": ["COREPACK_ENABLE_DOWNLOAD_PROMPT", "FALKORDB_URL", "FALKORDB_NAMESPACE"],
   "tasks": {
     "generate": {
       "cache": false

@@ -540,6 +540,7 @@ msgstr "Autoriser une fois"
 msgid "Allow purchase actions without asking"
 msgstr "Autoriser les actions d'achat sans demander"
 
+#: src/pages/memory-providers/FalkorDBSettingsForm.tsx
 #: src/pages/memory-providers/SerenitySettingsForm.tsx
 msgid "Allow writing"
 msgstr "Autoriser l'écriture"
@@ -1229,6 +1230,7 @@ msgid "Confirm the URL is reachable from this browser session, then test again."
 msgstr "Confirmez que l'URL est accessible depuis cette session du navigateur, puis testez à nouveau."
 
 #: src/components/integrations/IntegrationSetup.tsx
+#: src/pages/memory-providers/FalkorDBSettingsForm.tsx
 #: src/pages/memory-providers/SerenitySettingsForm.tsx
 #: src/pages/memory-providers/SupermemorySettingsForm.tsx
 #: src/pages/VoiceSettingsOverlay.tsx
@@ -1298,6 +1300,7 @@ msgstr "Connecté. Ses outils sont disponibles dès votre prochain message."
 
 #: src/components/integrations/IntegrationSetup.tsx
 #: src/pages/McpServersOverlay.tsx
+#: src/pages/memory-providers/FalkorDBSettingsForm.tsx
 #: src/pages/memory-providers/SerenitySettingsForm.tsx
 #: src/pages/memory-providers/SupermemorySettingsForm.tsx
 #: src/pages/shell/message-cards.tsx
@@ -2223,6 +2226,10 @@ msgstr "Saisissez un nombre entier de 1 à 1000 pour la limite d'images."
 msgid "Enter an API key before testing."
 msgstr "Saisissez une clé API avant de tester."
 
+#: src/pages/memory-providers/FalkorDBSettingsForm.tsx
+msgid "Enter the password for this username."
+msgstr ""
+
 #: src/lib/roster-status.ts
 #: src/pages/Shell.tsx
 msgid "Error"
@@ -2323,6 +2330,14 @@ msgstr "Échoué."
 msgid "Failure handling"
 msgstr "Gestion des échecs"
 
+#: src/pages/memory-providers/FalkorDBSettingsForm.tsx
+msgid "FalkorDB endpoint"
+msgstr ""
+
+#: src/pages/memory-providers/FalkorDBSettingsForm.tsx
+msgid "FalkorDB endpoint is required."
+msgstr ""
+
 #. placeholder {0}: attachmentSizeLabel(getMaxUploadSizeBytes())
 #: src/components/computer/FilesApp.tsx
 msgid "File exceeds the {0} upload limit."
@@ -2422,6 +2437,10 @@ msgstr "Préparation en cours"
 #: src/pages/RoutineEditor.tsx
 msgid "Git event"
 msgstr "Événement Git"
+
+#: src/pages/memory-providers/FalkorDBSettingsForm.tsx
+msgid "Graph namespace"
+msgstr ""
 
 #: src/pages/MessagingSettingsOverlay.tsx
 #: src/pages/Shell.tsx
@@ -3437,6 +3456,10 @@ msgstr "Mettre en attente"
 msgid "Password"
 msgstr "Mot de passe"
 
+#: src/pages/memory-providers/FalkorDBSettingsForm.tsx
+msgid "Password (optional)"
+msgstr ""
+
 #: src/pages/Auth.tsx
 msgid "Password recovery is not configured for this server"
 msgstr "La récupération de mot de passe n'est pas configurée pour ce serveur"
@@ -3573,10 +3596,16 @@ msgstr "Lire les réponses à voix haute"
 msgid "Reasoning effort"
 msgstr "Effort de raisonnement"
 
+#: src/pages/memory-providers/FalkorDBSettingsForm.tsx
 #: src/pages/memory-providers/SerenitySettingsForm.tsx
 msgid "Recall and write"
 msgstr "Rappel et écriture"
 
+#: src/pages/memory-providers/FalkorDBSettingsForm.tsx
+msgid "Recall hops"
+msgstr ""
+
+#: src/pages/memory-providers/FalkorDBSettingsForm.tsx
 #: src/pages/memory-providers/SerenitySettingsForm.tsx
 msgid "Recall only"
 msgstr "Rappel uniquement"
@@ -4802,6 +4831,10 @@ msgstr "Utilisez Connecter pour vérifier la clé."
 msgid "Use default guidance"
 msgstr "Utiliser les instructions par défaut"
 
+#: src/pages/memory-providers/FalkorDBSettingsForm.tsx
+msgid "Use falkordb://host:6379. Private LAN endpoints need the deployment owner."
+msgstr ""
+
 #: src/components/teach/TeachRecordingChrome.tsx
 msgid "Use Protected input for passwords."
 msgstr ""
@@ -4817,6 +4850,10 @@ msgstr "Utiliser votre propre clé"
 #: src/components/AskCard.tsx
 #: src/pages/shell/bot-credentials.tsx
 msgid "Username"
+msgstr ""
+
+#: src/pages/memory-providers/FalkorDBSettingsForm.tsx
+msgid "Username (optional)"
 msgstr ""
 
 #: src/pages/ModelSettingsOverlay.tsx

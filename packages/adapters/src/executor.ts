@@ -409,6 +409,7 @@ const READ_ONLY_AGENT_TOOLS = new Set([
   "request_takeover",
   "run_subagent",
   "task_catalog",
+  "query_memory_graph",
   "recall_memory",
   "schedule_list",
   "scratchpad_list",
@@ -3698,6 +3699,7 @@ export function createRunExecutor(deps: ExecutorDeps) {
           userId: run.userId,
           botId: bot.id,
           runId,
+          threadId: thread.id,
           screenLeaseId: screenLeaseIdForRun(computerScreenLease, runId, fence),
           signal: runAbortController.signal,
           connectedConnections: connectedPlugins.map((row) => ({
@@ -4060,6 +4062,7 @@ export function createRunExecutor(deps: ExecutorDeps) {
             groupId: thread.groupId,
             trigger: run.trigger,
             semanticMemoryEnabled,
+            memoryGraphEnabled: semanticMemory?.describe().capabilities.graphQuery === true,
             mediaImagesEnabled: Boolean(deps.artifacts && mediaGeneration?.capabilities.images),
             mediaVideoEnabled: Boolean(deps.artifacts && mediaGeneration?.capabilities.video),
             cloudAgentEnabled: cloudAgentsEnabled(cloudAgent, run.spaceId),
@@ -5972,6 +5975,20 @@ export function createRunExecutor(deps: ExecutorDeps) {
                   : "An approval card was posted. The user must approve it before its tools become available."
                 : "The server was registered without assigning it to this bot.",
             });
+          }
+          if (name === "query_memory_graph") {
+            if (!semanticMemory?.queryGraph) {
+              return finish({ error: "This memory provider does not expose graph queries." });
+            }
+            return finish(
+              await semanticMemory.queryGraph(
+                {
+                  cypher: String(args.cypher ?? ""),
+                  ...(args.limit == null ? {} : { limit: Number(args.limit) }),
+                },
+                context,
+              ),
+            );
           }
           if (name === "recall_memory") {
             return semanticMemory!.recall(
@@ -8052,6 +8069,8 @@ export function selectBuiltinToolsForRun(options: {
   groupId: string | null;
   trigger: string;
   semanticMemoryEnabled: boolean;
+  /** Provider implements the read-only graph query verb (FalkorDB). */
+  memoryGraphEnabled?: boolean;
   cloudAgentEnabled?: boolean;
   mediaImagesEnabled?: boolean;
   mediaVideoEnabled?: boolean;
@@ -8075,6 +8094,7 @@ export function selectBuiltinToolsForRun(options: {
         options.trigger,
       ),
       options.semanticMemoryEnabled,
+      options.memoryGraphEnabled,
     ),
     Boolean(options.cloudAgentEnabled),
   ).filter(
@@ -8103,6 +8123,7 @@ export function selectBuiltinToolsForRun(options: {
           "save_memory",
           "recall_memory",
           "forget_memory",
+          "query_memory_graph",
           "task_catalog",
           "board_tickets",
         ].includes(tool.name) &&

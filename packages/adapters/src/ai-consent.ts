@@ -48,7 +48,11 @@ export function aiRecipient(input: {
 
 function recipientName(provider: string, use: AiDataUse) {
   if (use === "voice") return voiceCatalogEntry(provider)?.name ?? provider;
-  if (use === "memory") return provider === "supermemory" ? "Supermemory" : provider;
+  if (use === "memory") {
+    if (provider === "supermemory") return "Supermemory";
+    if (provider === "falkordb") return "FalkorDB";
+    return provider;
+  }
   if (provider === "cursor") return "Cursor";
   return listPiCatalog().find((entry) => entry.provider === provider)?.providerName ?? provider;
 }

@@ -65,6 +65,8 @@ import type {
   SecretRecord,
   SemanticMemoryCapabilities,
   SemanticMemoryForgetRequest,
+  SemanticMemoryGraphQueryRequest,
+  SemanticMemoryGraphQueryResult,
   SemanticMemoryPurgeHistoryRequest,
   SemanticMemoryRecallRequest,
   SemanticMemoryResponse,
@@ -243,6 +245,11 @@ export interface SemanticMemoryProvider {
     request: SemanticMemoryForgetRequest,
     context: AdapterContext,
   ): Promise<SemanticMemoryResponse<{ id: string; expired: boolean; reason: string | null }>>;
+  /** Optional read-only graph query verb for graph-backed providers (FalkorDB). */
+  queryGraph?(
+    request: SemanticMemoryGraphQueryRequest,
+    context: AdapterContext,
+  ): Promise<SemanticMemoryResponse<SemanticMemoryGraphQueryResult>>;
 }
 
 export interface AgentRuntime {

@@ -11,6 +11,8 @@ export interface AdapterContext {
   userId: string;
   botId?: string;
   runId?: string;
+  /** Conversation thread, when the operation belongs to one. Used for provenance. */
+  threadId?: string;
   /** Opaque fence for releasing a graphical screen without tearing down its replacement. */
   screenLeaseId?: string;
   /** Retain a completed run's screen for reuse by this bot. */
@@ -335,6 +337,8 @@ export interface SemanticMemoryCapabilities {
   save: true;
   purgeHistory: true;
   sharedScope: true;
+  /** Provider exposes a read-only graph query verb (FalkorDB). */
+  graphQuery?: boolean;
 }
 
 export interface SemanticMemoryResult {
@@ -354,6 +358,20 @@ export interface SemanticMemoryForgetRequest {
   reason?: string;
   /** Entity/namespace from a prior recall citation, when the backend scopes deletes. */
   entity?: string;
+}
+
+/** Read-only Cypher over the Space memory graph. Writes are rejected by the provider. */
+export interface SemanticMemoryGraphQueryRequest {
+  cypher: string;
+  limit?: number;
+}
+
+export interface SemanticMemoryGraphQueryResult {
+  columns: string[];
+  rows: Array<Record<string, unknown>>;
+  truncated: boolean;
+  /** FalkorDB graph the query ran against (one graph per Space). */
+  graph: string;
 }
 
 export type SemanticMemoryResponse<T = void> =

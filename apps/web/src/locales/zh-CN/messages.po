@@ -540,6 +540,7 @@ msgstr "允许一次"
 msgid "Allow purchase actions without asking"
 msgstr "允许购买操作，无需询问"
 
+#: src/pages/memory-providers/FalkorDBSettingsForm.tsx
 #: src/pages/memory-providers/SerenitySettingsForm.tsx
 msgid "Allow writing"
 msgstr ""
@@ -1229,6 +1230,7 @@ msgid "Confirm the URL is reachable from this browser session, then test again."
 msgstr "请确认此浏览器会话可以访问该 URL，然后重新测试。"
 
 #: src/components/integrations/IntegrationSetup.tsx
+#: src/pages/memory-providers/FalkorDBSettingsForm.tsx
 #: src/pages/memory-providers/SerenitySettingsForm.tsx
 #: src/pages/memory-providers/SupermemorySettingsForm.tsx
 #: src/pages/VoiceSettingsOverlay.tsx
@@ -1298,6 +1300,7 @@ msgstr "已连接，下一条消息起即可使用其工具。"
 
 #: src/components/integrations/IntegrationSetup.tsx
 #: src/pages/McpServersOverlay.tsx
+#: src/pages/memory-providers/FalkorDBSettingsForm.tsx
 #: src/pages/memory-providers/SerenitySettingsForm.tsx
 #: src/pages/memory-providers/SupermemorySettingsForm.tsx
 #: src/pages/shell/message-cards.tsx
@@ -2223,6 +2226,10 @@ msgstr "请输入 1 到 1000 之间的整数作为图像限制。"
 msgid "Enter an API key before testing."
 msgstr "测试前请输入 API 密钥。"
 
+#: src/pages/memory-providers/FalkorDBSettingsForm.tsx
+msgid "Enter the password for this username."
+msgstr ""
+
 #: src/lib/roster-status.ts
 #: src/pages/Shell.tsx
 msgid "Error"
@@ -2323,6 +2330,14 @@ msgstr "失败。"
 msgid "Failure handling"
 msgstr "失败处理"
 
+#: src/pages/memory-providers/FalkorDBSettingsForm.tsx
+msgid "FalkorDB endpoint"
+msgstr ""
+
+#: src/pages/memory-providers/FalkorDBSettingsForm.tsx
+msgid "FalkorDB endpoint is required."
+msgstr ""
+
 #. placeholder {0}: attachmentSizeLabel(getMaxUploadSizeBytes())
 #: src/components/computer/FilesApp.tsx
 msgid "File exceeds the {0} upload limit."
@@ -2422,6 +2437,10 @@ msgstr ""
 #: src/pages/RoutineEditor.tsx
 msgid "Git event"
 msgstr "Git 事件"
+
+#: src/pages/memory-providers/FalkorDBSettingsForm.tsx
+msgid "Graph namespace"
+msgstr ""
 
 #: src/pages/MessagingSettingsOverlay.tsx
 #: src/pages/Shell.tsx
@@ -3437,6 +3456,10 @@ msgstr "搁置"
 msgid "Password"
 msgstr "密码"
 
+#: src/pages/memory-providers/FalkorDBSettingsForm.tsx
+msgid "Password (optional)"
+msgstr ""
+
 #: src/pages/Auth.tsx
 msgid "Password recovery is not configured for this server"
 msgstr "此服务器未配置密码恢复"
@@ -3573,10 +3596,16 @@ msgstr "朗读回复"
 msgid "Reasoning effort"
 msgstr "推理强度"
 
+#: src/pages/memory-providers/FalkorDBSettingsForm.tsx
 #: src/pages/memory-providers/SerenitySettingsForm.tsx
 msgid "Recall and write"
 msgstr ""
 
+#: src/pages/memory-providers/FalkorDBSettingsForm.tsx
+msgid "Recall hops"
+msgstr ""
+
+#: src/pages/memory-providers/FalkorDBSettingsForm.tsx
 #: src/pages/memory-providers/SerenitySettingsForm.tsx
 msgid "Recall only"
 msgstr ""
@@ -4802,6 +4831,10 @@ msgstr "请使用“连接”验证密钥。"
 msgid "Use default guidance"
 msgstr ""
 
+#: src/pages/memory-providers/FalkorDBSettingsForm.tsx
+msgid "Use falkordb://host:6379. Private LAN endpoints need the deployment owner."
+msgstr ""
+
 #: src/components/teach/TeachRecordingChrome.tsx
 msgid "Use Protected input for passwords."
 msgstr ""
@@ -4817,6 +4850,10 @@ msgstr "使用自己的密钥"
 #: src/components/AskCard.tsx
 #: src/pages/shell/bot-credentials.tsx
 msgid "Username"
+msgstr ""
+
+#: src/pages/memory-providers/FalkorDBSettingsForm.tsx
+msgid "Username (optional)"
 msgstr ""
 
 #: src/pages/ModelSettingsOverlay.tsx

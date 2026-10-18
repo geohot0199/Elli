@@ -1,0 +1,24 @@
+# Standalone FalkorDB for local development / the hackathon demo.
+#
+#   docker compose -f infra/falkordb/docker-compose.yml up -d
+#   FALKORDB_URL=falkordb://localhost:6379 pnpm demo:falkordb
+#
+# The bundled full stack also has a `falkordb` service; use one or the other.
+services:
+  falkordb:
+    image: ${FALKORDB_IMAGE:-falkordb/falkordb:latest}
+    container_name: rakazo-falkordb
+    restart: unless-stopped
+    volumes:
+      - falkordbdata:/var/lib/falkordb/data
+    ports:
+      # Loopback only: FalkorDB ships without authentication.
+      - "127.0.0.1:${FALKORDB_PORT:-6379}:6379"
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli ping | grep -q PONG"]
+      interval: 3s
+      timeout: 5s
+      retries: 20
+
+volumes:
+  falkordbdata:

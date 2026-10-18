@@ -29,6 +29,7 @@
     "test:evals": "tsx packages/testkit/src/cli/evals.ts",
     "test:computer-replay": "tsx packages/testkit/src/cli/computer-replay.ts",
     "test:computer": "tsx packages/testkit/src/cli/computer.ts",
+    "demo:falkordb": "tsx scripts/falkordb-demo.ts",
     "perf:desktop": "tsx packages/testkit/src/cli/desktop-performance.ts",
     "perf:compare": "tsx packages/testkit/src/cli/compare-performance.ts",
     "compose:up": "docker compose --env-file .env -f infra/compose/docker-compose.yml up --build",

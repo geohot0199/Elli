@@ -755,6 +755,30 @@ export const builtinAgentTools: ConnectorTool[] = [
     },
   },
   {
+    name: "query_memory_graph",
+    description:
+      "Run a read-only Cypher query over this Space's FalkorDB memory graph and get the rows back. " +
+      "Schema: (:Space {id})-[:IN_SPACE]-(:Memory {id, text, kind, scope, botId, userId, createdAt, updatedAt, expired}); " +
+      "(:Bot {id})-[:REMEMBERS]->(:Memory); (:User {id})-[:SAVED]->(:Memory); " +
+      "(:Memory)-[:MENTIONS]->(:Entity {key, name, type}); (:Entity)-[:CO_OCCURS {weight}]-(:Entity); " +
+      "(:Memory)-[:NEXT]->(:Memory); (:Memory)-[:SOURCED_FROM]->(:Thread {id}). " +
+      "Use it for multi-hop questions that recall_memory cannot answer, such as which bots share an entity, " +
+      "how two topics connect, or when a decision entered memory. Writes are rejected; results are capped at limit rows.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        cypher: {
+          type: "string",
+          description:
+            "A single read-only Cypher query starting with MATCH, OPTIONAL MATCH, WITH, UNWIND or RETURN. No semicolon-separated statements.",
+        },
+        limit: { type: "integer", minimum: 1, maximum: 50, description: "Maximum rows to return." },
+      },
+      required: ["cypher"],
+    },
+    readOnly: true,
+  },
+  {
     name: "task_catalog",
     description:
       "Read-only inventory and source of truth for this bot's real open tasks, saved routines, taught skills, reusable skills, and currently exposed tools. Call it before claiming a task or skill exists. Use the returned ids and exact names; do not infer capabilities from memory or conversation text.",

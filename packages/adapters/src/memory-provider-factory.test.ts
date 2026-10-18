@@ -1,5 +1,9 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { createMemoryProvider, SpaceMemoryProviderResolver } from "./memory-provider-factory.js";
+import {
+  createMemoryProvider,
+  memoryProviderRequiresDeploymentOwner,
+  SpaceMemoryProviderResolver,
+} from "./memory-provider-factory.js";
 import { assertSupermemoryLocalBaseUrl } from "./supermemory-memory-provider.js";
 
 function resolverFor(
@@ -32,6 +36,51 @@ function resolverFor(
 }
 
 afterEach(() => vi.unstubAllGlobals());
+
+describe("FalkorDB registration", () => {
+  it("creates the graph provider without opening a connection", () => {
+    const provider = createMemoryProvider(
+      "falkordb",
+      { url: "falkordb://graph.example.com:6379" },
+      {},
+    );
+    expect(provider.describe().id).toBe("falkordb");
+    expect(provider.describe().capabilities.graphQuery).toBe(true);
+  });
+
+  it("gates private endpoints before reading credentials", () => {
+    expect(
+      memoryProviderRequiresDeploymentOwner("falkordb", { url: "falkordb://127.0.0.1:6379" }),
+    ).toBe(true);
+    expect(
+      memoryProviderRequiresDeploymentOwner("falkordb", {
+        url: "falkordb://graph.example.com:6379",
+      }),
+    ).toBe(false);
+  });
+
+  it("resolves a saved FalkorDB configuration", async () => {
+    const prisma = {
+      spaceMemoryConfig: {
+        findUnique: vi.fn(async () => ({
+          userId: "config-author",
+          provider: "falkordb",
+          settings: { url: "falkordb://graph.example.com:6379", maxHops: "2" },
+          defaultMemoryScope: "isolated",
+          secret: { ciphertext: "encrypted" },
+        })),
+      },
+      deploymentSettings: {
+        findUnique: vi.fn(async () => ({ ownerUserId: null })),
+      },
+    };
+    const secrets = { load: vi.fn(() => JSON.stringify({ password: "secret" })) };
+    const resolver = new SpaceMemoryProviderResolver(prisma as never, secrets as never);
+    const configured = await resolver.resolve("workspace-1");
+    expect(configured?.provider.describe().id).toBe("falkordb");
+    expect(configured?.defaultScope).toBe("isolated");
+  });
+});
 
 describe("SpaceMemoryProviderResolver", () => {
   it.each([null, "another-user"])(

@@ -11,6 +11,13 @@ import {
 export { MemoryProviderDeploymentOwnerRequiredError } from "./serenity-memory-provider.js";
 
 import {
+  classifyFalkorConnectionSettings,
+  createFalkorProvider,
+  FALKORDB_PROVIDER_ID,
+  falkordbRequiresDeploymentOwner,
+  prepareFalkorConnection,
+} from "./falkordb-memory-provider.js";
+import {
   assertSupermemoryLocalBaseUrl,
   createSupermemoryProvider,
   decodeLegacySupermemoryCredentials,
@@ -66,6 +73,20 @@ const MEMORY_PROVIDER_ADAPTERS: ReadonlyMap<string, MemoryProviderAdapter> = new
       prepare: prepareSupermemoryConnection,
       create: createSupermemoryProvider,
       decodeLegacyCredentials: decodeLegacySupermemoryCredentials,
+    },
+  ],
+  [
+    FALKORDB_PROVIDER_ID,
+    {
+      requiresDeploymentOwner: falkordbRequiresDeploymentOwner,
+      classifySettings: (settings: Record<string, string>) =>
+        classifyFalkorConnectionSettings(settings),
+      prepare: (
+        settings: Record<string, string>,
+        credentials: Record<string, string>,
+        options?: { allowPrivateEndpoint?: boolean },
+      ) => prepareFalkorConnection(settings, credentials, {}, options),
+      create: createFalkorProvider,
     },
   ],
   [

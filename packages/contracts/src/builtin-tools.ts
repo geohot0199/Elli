@@ -38,6 +38,7 @@ export const BUILTIN_TOOL_NAMES = [
   "save_memory",
   "recall_memory",
   "forget_memory",
+  "query_memory_graph",
   "task_catalog",
   "scratchpad_list",
   "scratchpad_add",

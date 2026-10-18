@@ -11,6 +11,7 @@ const allThree = [
   tool("recall_memory"),
   tool("save_memory"),
   tool("forget_memory"),
+  tool("query_memory_graph"),
   tool("shell"),
 ];
 
@@ -23,6 +24,18 @@ describe("selectMemoryTools", () => {
   it("keeps semantic memory tools and drops native remember when configured", () => {
     const names = selectMemoryTools(allThree, true).map((t) => t.name);
     expect(names).toEqual(["recall_memory", "save_memory", "forget_memory", "shell"]);
+  });
+
+  it("exposes graph queries only for a provider that implements them", () => {
+    expect(selectMemoryTools(allThree, true, true).map((t) => t.name)).toContain(
+      "query_memory_graph",
+    );
+    expect(selectMemoryTools(allThree, true).map((t) => t.name)).not.toContain(
+      "query_memory_graph",
+    );
+    expect(selectMemoryTools(allThree, false, true).map((t) => t.name)).not.toContain(
+      "query_memory_graph",
+    );
   });
 
   it("is a no-op for tool lists with no memory tools at all", () => {

@@ -1,5 +1,7 @@
 import type { SpaceMemoryConfig } from "@rakazo/contracts";
 import type { ComponentType } from "react";
+import { FalkorDBSettingsForm } from "./FalkorDBSettingsForm";
+import { falkordbConnectedLabel } from "./falkordb-settings";
 import { SerenitySettingsForm } from "./SerenitySettingsForm";
 import { SupermemorySettingsForm } from "./SupermemorySettingsForm";
 
@@ -29,6 +31,18 @@ export const MEMORY_PROVIDER_SETTINGS: readonly MemoryProviderSettingsRegistrati
     SettingsForm: SupermemorySettingsForm,
     connectedLabel: (config) =>
       config.settings.mode === "cloud" ? "Supermemory Cloud" : `Local · ${config.settings.baseUrl}`,
+  },
+  {
+    id: "falkordb",
+    name: "FalkorDB",
+    description:
+      "Graph-native durable memory: multi-hop recall, shared Space facts, and read-only graph queries.",
+    SettingsForm: FalkorDBSettingsForm,
+    connectedLabel: (config) => {
+      const mode = config.settings.allowWrites === "false" ? "recall only" : "read/write";
+      const hops = config.settings.maxHops ?? "2";
+      return `FalkorDB · ${falkordbConnectedLabel(config.settings)} · ${mode} · ${hops} hop recall`;
+    },
   },
   {
     id: "serenity",

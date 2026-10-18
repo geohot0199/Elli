@@ -9,6 +9,7 @@ import type {
   SemanticMemoryResult,
   SemanticMemorySaveRequest,
 } from "@rakazo/adapter-kit";
+import { MemoryProviderDeploymentOwnerRequiredError } from "./memory-provider-error.js";
 import {
   classifySerenityEndpointTrust,
   forgetSerenity,
@@ -24,14 +25,7 @@ import {
 
 export const SERENITY_PROVIDER_ID = "serenity";
 
-/** Thrown when prepare would probe a private endpoint without deployment-owner authorization. */
-export class MemoryProviderDeploymentOwnerRequiredError extends Error {
-  readonly code = "DEPLOYMENT_OWNER_REQUIRED" as const;
-  constructor(message = "This memory provider endpoint requires deployment-owner authorization.") {
-    super(message);
-    this.name = "MemoryProviderDeploymentOwnerRequiredError";
-  }
-}
+export { MemoryProviderDeploymentOwnerRequiredError } from "./memory-provider-error.js";
 
 function requiredValue(values: Record<string, string>, key: string): string {
   const value = values[key]?.trim();
