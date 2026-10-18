@@ -68,8 +68,7 @@ Then choose **FalkorDB** under Settings → Memory and point it at
 [docs/hackathon/graph-hacks.md](./docs/hackathon/graph-hacks.md).
 
 ## Demo
-
-https://github.com/user-attachments/assets/dccdeddb-2134-4a56-8eed-b2e591736b1c
+https://youtu.be/wxmpvafk8FY?si=G6alkKV4QTI07Tfq
 
 ## Stack
 
