@@ -1,0 +1,124 @@
+# FalkorDB demo transcript
+
+Captured against FalkorDB 4.16.3 (redis-server 7.4.2, falkordb npm client 6.8.0) on 2026-10-18.
+Reproduce with `FALKORDB_URL=falkordb://localhost:6379 pnpm demo:falkordb`.
+
+```
+
+> rakazo@0.1.0 demo:falkordb /home/user/Elli
+> tsx scripts/falkordb-demo.ts
+
+
+FalkorDB graph memory demo · rakazo_demo_space_472a3fd5761fb1934d4bba62
+───────────────────────────────────────────────────────────────────────
+Server: falkordb://127.0.0.1:6390
+Reset the demo graph.
+  + atlas    isolated Northwind Robotics renewed the Atlas contract. Priya Raman owns the …
+  + atlas    isolated The Atlas security review is blocked by missing SOC 2 evidence from …
+  + sentinel shared   Incident INC-2041: a retry storm in invoice-worker hit billing-api d…
+  + sentinel shared   Root cause of INC-2041 was a missing idempotency key in invoice-work…
+  + atlas    isolated Priya Raman decided to sign the renewal with a 30-day security remed…
+  + sentinel shared   SOC 2 evidence for billing-api is owned by Marco Silva and lives in …
+  + atlas    isolated Northwind Robotics asked for a weekly status update on the billing-a…
+
+Graph shape
+───────────
+  Entity     47
+  Memory     7
+  Thread     3
+  Bot        2
+  User       2
+  Space      1
+  -[CO_OCCURS]-> 283
+  -[MENTIONS]-> 68
+  -[IN_SPACE]-> 7
+  -[REMEMBERS]-> 7
+  -[SAVED]-> 7
+  -[SOURCED_FROM]-> 7
+  -[NEXT]-> 5
+
+Recall: What is blocking the Atlas renewal, and who is involved?
+────────────────────────────────────────────────────────────────
+
+  [0.700] Northwind Robotics renewed the Atlas contract. Priya Raman owns the renewal and the security review.
+          why: rakazo_demo_space_472a3fd5761fb1934d4bba62 · direct: atlas, renewal · 1-hop: northwind robotics (w=2), 1-hop: priya raman (w=3), 1-hop: northwind (w=2) · terms 2/4 · saved 2026-10-18
+          entities: northwind robotics, atlas, priya raman, northwind, robotics, renewed, contract, priya, raman, owns, renewal, security
+
+  [0.550] Priya Raman decided to sign the renewal with a 30-day security remediation plan for SOC 2.
+          why: rakazo_demo_space_472a3fd5761fb1934d4bba62 · direct: renewal · 1-hop: decided (w=1), 1-hop: sign (w=1), 1-hop: remediation (w=1) · terms 1/4 · saved 2026-10-18
+          entities: decided, sign, remediation, plan, soc, priya raman, priya, raman, renewal, security
+
+  [0.550] The Atlas security review is blocked by missing SOC 2 evidence from the billing-api team.
+          why: rakazo_demo_space_472a3fd5761fb1934d4bba62 · direct: atlas · 1-hop: soc (w=2), 1-hop: missing (w=1), 2-hop: evidence (w=5) · terms 1/4 · saved 2026-10-18
+          entities: soc, blocked, missing, evidence, billing-api, team, atlas, security, review
+
+  [0.400] Northwind Robotics asked for a weekly status update on the billing-api remediation.
+          why: rakazo_demo_space_472a3fd5761fb1934d4bba62 · 2-hop: asked (w=4), 2-hop: weekly (w=4), 2-hop: status (w=4) · saved 2026-10-18
+          entities: asked, weekly, status, update, remediation, billing-api, northwind robotics, northwind, robotics
+
+Two-hop question the flat store cannot answer
+─────────────────────────────────────────────
+
+  [0.520] Priya Raman decided to sign the renewal with a 30-day security remediation plan for SOC 2.
+          why: rakazo_demo_space_472a3fd5761fb1934d4bba62 · direct: renewal · 2-hop: decided (w=6), 1-hop: sign (w=1), 1-hop: remediation (w=1) · terms 1/5 · saved 2026-10-18
+
+  [0.520] Northwind Robotics renewed the Atlas contract. Priya Raman owns the renewal and the security review.
+          why: rakazo_demo_space_472a3fd5761fb1934d4bba62 · direct: renewal · 2-hop: northwind robotics (w=9), 2-hop: atlas (w=10), 1-hop: priya raman (w=2) · terms 1/5 · saved 2026-10-18
+
+  [0.400] Northwind Robotics asked for a weekly status update on the billing-api remediation.
+          why: rakazo_demo_space_472a3fd5761fb1934d4bba62 · 1-hop: remediation (w=1), 1-hop: billing-api (w=3), 2-hop: northwind robotics (w=9) · saved 2026-10-18
+
+  [0.400] The Atlas security review is blocked by missing SOC 2 evidence from the billing-api team.
+          why: rakazo_demo_space_472a3fd5761fb1934d4bba62 · 2-hop: soc (w=10), 1-hop: billing-api (w=3), 2-hop: atlas (w=10) · saved 2026-10-18
+
+Read-only Cypher: which bots know about billing-api?
+────────────────────────────────────────────────────
+┌─────────┬────────────┬──────────┐
+│ (index) │ bot        │ memories │
+├─────────┼────────────┼──────────┤
+│ 0       │ 'atlas'    │ 2        │
+│ 1       │ 'sentinel' │ 2        │
+└─────────┴────────────┴──────────┘
+  graph=rakazo_demo_space_472a3fd5761fb1934d4bba62 truncated=false
+
+Read-only Cypher: how do Atlas and SOC 2 connect?
+─────────────────────────────────────────────────
+┌─────────┬────────────────────────────────┬──────┐
+│ (index) │ path                           │ hops │
+├─────────┼────────────────────────────────┼──────┤
+│ 0       │ [ 'atlas', 'soc' ]             │ 1    │
+│ 1       │ [ 'atlas', 'review', 'soc' ]   │ 2    │
+│ 2       │ [ 'atlas', 'security', 'soc' ] │ 2    │
+└─────────┴────────────────────────────────┴──────┘
+
+Episodic chain for the shared incident thread
+─────────────────────────────────────────────
+┌─────────┬──────────────────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────┬───────────────┐
+│ (index) │ id                           │ text                                                                                                     │ createdAt     │
+├─────────┼──────────────────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────┼───────────────┤
+│ 0       │ 'm_55445ca1445e109bdbf53870' │ 'Incident INC-2041: a retry storm in invoice-worker hit billing-api during the monthly close.'           │ 1792305529136 │
+│ 1       │ 'm_3ac0413a329139c3d02646c4' │ 'Root cause of INC-2041 was a missing idempotency key in invoice-worker; the fix shipped on 2026-10-02.' │ 1792305529139 │
+└─────────┴──────────────────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────┴───────────────┘
+
+Provider recall (the recall_memory tool path)
+─────────────────────────────────────────────
+
+  [0.800] Northwind Robotics renewed the Atlas contract. Priya Raman owns the renewal and the security review.
+          why: rakazo_demo_space_472a3fd5761fb1934d4bba62 · direct: atlas, renewal · 1-hop: northwind robotics (w=2), 1-hop: priya raman (w=3), 1-hop: northwind (w=2) · terms 2/3 · saved 2026-10-18
+
+  [0.600] Priya Raman decided to sign the renewal with a 30-day security remediation plan for SOC 2.
+          why: rakazo_demo_space_472a3fd5761fb1934d4bba62 · direct: renewal · 1-hop: decided (w=1), 1-hop: sign (w=1), 1-hop: remediation (w=1) · terms 1/3 · saved 2026-10-18
+
+Provider graph query (the query_memory_graph tool path)
+───────────────────────────────────────────────────────
+┌─────────┬─────────┬──────────┐
+│ (index) │ user    │ memories │
+├─────────┼─────────┼──────────┤
+│ 0       │ 'priya' │ 2        │
+│ 1       │ 'marco' │ 1        │
+└─────────┴─────────┴──────────┘
+
+Demo complete. Both provider calls above are the same code paths the bot
+uses for recall_memory and query_memory_graph inside Rakazo.
+
+```
